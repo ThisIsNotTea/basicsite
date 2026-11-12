@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Documents" description="Public documents and resources from the county party.">
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">Useful resources</p>
+      <h1>Documents</h1>
+      <p>Find meeting resources and public documents. Add only materials approved for publication.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container prose">
+      <h2>Meeting resources</h2>
+      <ul class="document-list">
+        <li>
+          <a href="/documents/meeting-agenda-template.txt" download>Download the meeting agenda template</a>
+          <span> — a simple text template to adapt for local committee meetings.</span>
+        </li>
+      </ul>
+      <h2>More documents</h2>
+      <p>
+        To publish a PDF, place it in <code>public/documents/</code> and add a descriptive
+        link here. Use clear filenames and check that documents are accessible and contain
+        no personal information that should not be public.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

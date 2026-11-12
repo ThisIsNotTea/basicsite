@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout
+  title="Get involved"
+  description={`Volunteer with the ${siteConfig.partyName} and take part in your local community.`}
+>
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">Make a difference close to home</p>
+      <h1>Get involved</h1>
+      <p>Bring your time, ideas, and skills. There are lots of ways to contribute.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container card-grid">
+      <article class="info-card">
+        <p class="eyebrow">Start here</p>
+        <h3>Attend a meeting</h3>
+        <p>Meet local organizers and hear about priorities, upcoming races, and ways to help.</p>
+        <a class="text-link" href="/events/">See upcoming events</a>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow">Help your neighbors</p>
+        <h3>Volunteer at an event</h3>
+        <p>Welcome guests, help with setup, or lend a hand at a community service project.</p>
+        <a class="text-link" href="/contact/">Ask about volunteering</a>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow">Share your skills</p>
+        <h3>Join a working group</h3>
+        <p>Writing, photography, design, research, technology, and logistics are all useful.</p>
+        <a class="text-link" href="/contact/">Tell us what you can do</a>
+      </article>
+    </div>
+  </section>
+  <section class="section section-white">
+    <div class="container prose">
+      <h2>Ready to say hello?</h2>
+      <p>
+        Email <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> with
+        your name, the best way to reach you, and what you'd like to learn about. Please do not
+        send sensitive personal information.
+      </p>
+      <a class="button" href="/contact/">Contact the county party</a>
+    </div>
+  </section>
+</BaseLayout>

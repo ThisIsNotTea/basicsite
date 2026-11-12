@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("news", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout title="News" description="News and announcements from the local county Republican Party.">
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">Updates from the community</p>
+      <h1>News &amp; announcements</h1>
+      <p>Local updates, meeting notes, and announcements from the county party.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container">
+      {
+        posts.length ? (
+          <div class="news-list">
+            {posts.map((post) => (
+              <article class="news-card">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", { dateStyle: "long" })}
+                </time>
+                <h2><a href={`/news/${post.id}/`}>{post.data.title}</a></h2>
+                <p>{post.data.description}</p>
+                <a class="text-link" href={`/news/${post.id}/`}>Read update</a>
+              </article>
+            ))}
+          </div>
+        ) : <p>There are no published updates yet.</p>
+      }
+    </div>
+  </section>
+</BaseLayout>

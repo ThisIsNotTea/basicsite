@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EventCard from "../components/EventCard.astro";
+import { siteConfig } from "../config";
+import { getCollection } from "astro:content";
+import { getUpcomingEvents } from "../lib/events";
+
+const [allEvents, allNews] = await Promise.all([
+  getCollection("events"),
+  getCollection("news", ({ data }) => !data.draft),
+]);
+const upcomingEvents = getUpcomingEvents(allEvents).slice(0, 3);
+const latestNews = allNews.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 3);
+---
+
+<BaseLayout title={siteConfig.partyName}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Neighbors. Community. Opportunity.</p>
+        <h1>Local voices. Stronger communities.</h1>
+        <p>
+          We are neighbors in {siteConfig.county} working to elect principled leaders,
+          support our communities, and make government more accountable.
+        </p>
+        <div class="button-row">
+          <a class="button" href="/get-involved/">Find your way to help</a>
+          <a class="button button-secondary" href="/events/">See upcoming events</a>
+        </div>
+      </div>
+      <aside class="hero-note">
+        <h2>Our mission</h2>
+        <p>
+          Bring people together around shared conservative values, encourage civic
+          participation, and serve the people of {siteConfig.county}.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-white" aria-labelledby="events-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Meet your neighbors</p>
+          <h2 id="events-heading">Coming up</h2>
+        </div>
+        <a href="/events/">All events <span aria-hidden="true">→</span></a>
+      </div>
+      {
+        upcomingEvents.length ? (
+          <div class="event-list">
+            {upcomingEvents.map((event) => <EventCard event={event} />)}
+          </div>
+        ) : (
+          <p>There are no upcoming events posted right now. Check back soon or <a href="/contact/">get in touch</a>.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Get involved locally</p>
+          <h2>There is a place for you here</h2>
+        </div>
+      </div>
+      <div class="card-grid">
+        <article class="info-card">
+          <p class="eyebrow">Show up</p>
+          <h3>Join a local meeting</h3>
+          <p>Meet local volunteers, learn what is happening, and help shape our priorities.</p>
+          <a class="text-link" href="/events/">Find a meeting</a>
+        </article>
+        <article class="info-card">
+          <p class="eyebrow">Lend a hand</p>
+          <h3>Volunteer your way</h3>
+          <p>Help with community events, voter outreach, communications, or a skill you enjoy.</p>
+          <a class="text-link" href="/get-involved/">Explore opportunities</a>
+        </article>
+        <article class="info-card">
+          <p class="eyebrow">Stay informed</p>
+          <h3>Read local updates</h3>
+          <p>See announcements, community news, and notes from the county organization.</p>
+          <a class="text-link" href="/news/">Browse the news</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white" aria-labelledby="news-heading">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">From the county committee</p>
+          <h2 id="news-heading">Latest updates</h2>
+        </div>
+        <a href="/news/">All news <span aria-hidden="true">→</span></a>
+      </div>
+      {
+        latestNews.length ? (
+          <div class="news-list">
+            {latestNews.map((post) => (
+              <article class="news-card">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", { dateStyle: "long" })}
+                </time>
+                <h2><a href={`/news/${post.id}/`}>{post.data.title}</a></h2>
+                <p>{post.data.description}</p>
+              </article>
+            ))}
+          </div>
+        ) : <p>No news has been published yet.</p>
+      }
+    </div>
+  </section>
+</BaseLayout>

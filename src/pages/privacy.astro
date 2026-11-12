@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout
+  title="Privacy policy"
+  description={`Privacy information for the ${siteConfig.partyName} website.`}
+>
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">Your information matters</p>
+      <h1>Privacy policy</h1>
+      <p>Last updated: November 2026</p>
+    </div>
+  </header>
+  <article class="container prose">
+    <h2>Information this website collects</h2>
+    <p>
+      This starter is a static website. It does not include accounts, analytics, advertising
+      trackers, or a built-in contact form. Your web host may process standard server logs
+      such as IP address, request time, and requested page to deliver and protect the site.
+    </p>
+    <h2>When you contact us</h2>
+    <p>
+      If you email us, we receive the information you choose to include in your message and
+      use it to respond. Do not send sensitive personal information. Replace this section
+      with the actual practices and contact information for your organization before launch.
+    </p>
+    <h2>Third-party services</h2>
+    <p>
+      Event registration and donation links may take you to third-party websites. Their
+      privacy practices are governed by their own policies. Review those policies before
+      sharing information or making a contribution.
+    </p>
+    <h2>Questions</h2>
+    <p>Contact <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> with privacy questions.</p>
+    <p class="notice">
+      This template is not legal advice. Have local counsel or a qualified privacy
+      professional review this policy and your actual data practices before publishing.
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout
+  title="Contact"
+  description={`Contact the ${siteConfig.partyName} with questions, ideas, and volunteer inquiries.`}
+>
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">We would like to hear from you</p>
+      <h1>Contact</h1>
+      <p>Questions, ideas, or interested in volunteering? Send us a note.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container prose">
+      <h2>Email the county party</h2>
+      <p><a class="button" href={`mailto:${siteConfig.contactEmail}`}>Email {siteConfig.contactEmail}</a></p>
+      <p>
+        For volunteer inquiries, include the kinds of activities you are interested in
+        and how you prefer to be contacted. Avoid including sensitive personal details.
+      </p>
+      <h2>Social media</h2>
+      <p>
+        Add your official social media profiles to <code>src/config.ts</code>; links will
+        appear in the site footer.
+      </p>
+      <p class="notice">
+        This static starter does not collect or store form submissions. To add a form,
+        use a reputable hosted service and review its privacy terms before collecting data.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

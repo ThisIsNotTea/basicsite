@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config";
+---
+
+<BaseLayout
+  title="About"
+  description={`Learn about the mission, values, and community work of the ${siteConfig.partyName}.`}
+>
+  <header class="page-intro">
+    <div class="container">
+      <p class="eyebrow">Rooted here</p>
+      <h1>About our county party</h1>
+      <p>Local people working together to make a positive difference in {siteConfig.county}.</p>
+    </div>
+  </header>
+  <div class="container prose">
+    <h2>Our mission</h2>
+    <p>
+      The {siteConfig.partyName} brings neighbors together to promote civic participation,
+      support Republican candidates, and advocate for responsible, accountable government.
+      We believe strong communities grow when people have the freedom and opportunity to
+      build a good life.
+    </p>
+    <h2>What we do</h2>
+    <ul>
+      <li>Connect residents with local civic and volunteer opportunities.</li>
+      <li>Support candidates and campaigns who share our principles.</li>
+      <li>Host public meetings and community events.</li>
+      <li>Share useful information about local government and elections.</li>
+    </ul>
+    <h2>Leadership and meetings</h2>
+    <p>
+      Our local committee is made up of volunteers. Add approved officer names,
+      biographies, terms, and meeting details here before launch. For current
+      information, <a href="/contact/">contact the county party</a>.
+    </p>
+    <p class="notice">
+      This site is a starter template. Replace example details with verified local
+      information and review all required election and fundraising disclosures.
+    </p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+import "../styles/global.css";
+import { siteConfig } from "../config";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = siteConfig.description } = Astro.props;
+const pageTitle = title === siteConfig.partyName ? title : `${title} | ${siteConfig.partyName}`;
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.siteUrl).toString();
+const socialLinks = siteConfig.socialLinks.filter((link) => link.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="light" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(siteConfig.logoPath, siteConfig.siteUrl).toString()} />
+    <title>{pageTitle}</title>
+  </head>
+  <body
+    style={`--color-primary: ${siteConfig.colors.primary}; --color-primary-dark: ${siteConfig.colors.primaryDark}; --color-accent: ${siteConfig.colors.accent}; --color-background: ${siteConfig.colors.background}; --color-text: ${siteConfig.colors.text};`}
+  >
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label={`${siteConfig.partyName} home`}>
+          <img src={siteConfig.logoPath} alt="" width="48" height="48" />
+          <span>
+            <strong>{siteConfig.partyName}</strong>
+            <small>{siteConfig.county}, {siteConfig.state}</small>
+          </span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="/about/">About</a>
+          <a href="/news/">News</a>
+          <a href="/events/">Events</a>
+          <a href="/get-involved/">Get involved</a>
+          <a href="/documents/">Documents</a>
+          <a class="nav-contact" href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a class="footer-brand" href="/">{siteConfig.partyName}</a>
+          <p>Neighbors working together for {siteConfig.county}.</p>
+        </div>
+        <div>
+          <h2>Explore</h2>
+          <ul class="footer-links">
+            <li><a href="/about/">About us</a></li>
+            <li><a href="/events/">Upcoming events</a></li>
+            <li><a href="/get-involved/">Volunteer</a></li>
+            <li><a href="/privacy/">Privacy policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Connect</h2>
+          <ul class="footer-links">
+            <li><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></li>
+            {
+              socialLinks.map((link) => (
+                <li>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© {new Date().getFullYear()} {siteConfig.partyName}</span>
+        <span>Paid for by the {siteConfig.partyName}. Add required local disclaimers before publishing.</span>
+      </div>
+    </footer>
+  </body>
+</html>

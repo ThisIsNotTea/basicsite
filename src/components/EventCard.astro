@@ -1,0 +1,34 @@
+---
+import type { EventEntry } from "../lib/events";
+import { eventIcsPath, formatEventDate, googleCalendarUrl } from "../lib/events";
+
+interface Props {
+  event: EventEntry;
+}
+
+const { event } = Astro.props;
+---
+
+<article class="event-card">
+  <div class="event-date" aria-hidden="true">
+    <span>{new Intl.DateTimeFormat("en-US", { month: "short" }).format(event.data.date)}</span>
+    <strong>{event.data.date.getDate()}</strong>
+  </div>
+  <div class="event-main">
+    <p class="eyebrow">{formatEventDate(event.data.date)}</p>
+    <h3>{event.data.title}</h3>
+    <p>{event.data.description}</p>
+    <p class="event-location"><strong>Location:</strong> {event.data.location}</p>
+    <div class="event-actions">
+      {
+        event.data.registrationLink && (
+          <a class="text-link" href={event.data.registrationLink} target="_blank" rel="noopener noreferrer">
+            Register <span aria-hidden="true">↗</span>
+          </a>
+        )
+      }
+      <a class="text-link" href={googleCalendarUrl(event)}>Add to Google Calendar</a>
+      <a class="text-link" href={eventIcsPath(event)}>Download .ics</a>
+    </div>
+  </div>
+</article>
